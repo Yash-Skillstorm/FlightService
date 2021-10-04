@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<FlightWebApplication.Data.Passenger>
+@{
+    ViewData["Title"] = "Passenger";
+}
+
+<div class="text-center">
+    <h2>View All Passengers</h2>
+    <a class="navbar-brand" asp-area="" asp-controller="Passenger" asp-action="Create">Add Passenger</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Passenger_Name) </th>
+                <th>@Html.DisplayNameFor(model => model.Passenger_Age)  </th>
+                <th>@Html.DisplayNameFor(model => model.Passenger_Email)  </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var home in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelitem => home.Passenger_Name) </td>
+                <td>@Html.DisplayFor(modelitem => home.Passenger_Age) </td>
+                <td>@Html.DisplayFor(modelitem => home.Passenger_Email) </td>
+                <td>@Html.ActionLink("Details", "Details", new { id = home.Id })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { id = home.Id })</td>                
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
