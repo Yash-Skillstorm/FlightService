@@ -14,7 +14,7 @@ namespace FlightWebApplication.Data
         public void AddFlight(Flight flight);
         public void UpdateFlight(Flight flight);
 
-        public IEnumerable<ActiveFlight> GetTable();
+       // public IEnumerable<ActiveFlight> GetTable();
         
     }
 }

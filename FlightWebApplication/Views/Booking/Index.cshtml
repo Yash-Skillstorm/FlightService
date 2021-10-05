@@ -4,50 +4,41 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h2>View All Booking</h2>
+    <a class="navbar-brand" asp-area="" asp-controller="Booking" asp-action="Create">Add Booking</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Flight_Num)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Passenger_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reservation_Num)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+            <tr>
+                <td>                    
+                    @Html.DisplayFor(modelItem => booking.Flight_Num)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.Passenger_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => booking.Reservation_Num)
+                </td>
+                <td>@Html.ActionLink("Details", "Details", new { id = booking.Id })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { id = booking.Id })</td>
+            </tr>
+            }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Flight_Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Passenger_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation_Num)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Flight_Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Passenger_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reservation_Num)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

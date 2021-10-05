@@ -13,7 +13,7 @@ namespace FlightWebApplication.Controllers
     public class FlightController : Controller
     {
         private readonly IFlightDAO flightDao;
-        
+        ReferanceTableData GetTableData = new ReferanceTableData();
         public FlightController(IFlightDAO flightDao)
         {
             this.flightDao = flightDao;
@@ -24,10 +24,10 @@ namespace FlightWebApplication.Controllers
         public IActionResult Index()
         {
             IEnumerable<Flight> model = flightDao.GetFlights();
-            IEnumerable<ActiveFlight> mod = flightDao.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
 
             foreach (var item in model)
-            {
+            {                
                 var replaceFlight_Num = mod.Where(i => item.Flight_Num.Equals(i.Id)).SingleOrDefault();
                 if(replaceFlight_Num.Id == item.Flight_Num)
                 {
@@ -41,14 +41,14 @@ namespace FlightWebApplication.Controllers
         public IActionResult Details(int id)
         {
             Flight model = flightDao.GetFlight(id);
-            model.Flight_Num = flightDao.GetTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
+            model.Flight_Num = GetTableData.GetTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
             return View(model);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            IEnumerable<ActiveFlight> mod = flightDao.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
             ViewBag.m = mod;
             //ViewBag.m = new SelectList(, "activeflight_Id", "flight_Number")
             return View();
@@ -75,7 +75,7 @@ namespace FlightWebApplication.Controllers
                 return NotFound();
             }
             Flight model = flightDao.GetFlight(id);
-            IEnumerable<ActiveFlight> mod = flightDao.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
             ViewBag.m = mod;
             if (model == null)
             {

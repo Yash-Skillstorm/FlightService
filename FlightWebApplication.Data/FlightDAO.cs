@@ -169,35 +169,35 @@ namespace FlightWebApplication.Data
             }
         }
 
-        public IEnumerable<ActiveFlight> GetTable()
-        {
-            List<ActiveFlight> flightList = new List<ActiveFlight>();
+        //public IEnumerable<ActiveFlight> GetTable()
+        //{
+        //    List<ActiveFlight> flightList = new List<ActiveFlight>();
 
-            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
-            {
-                SqlCommand cmd = new SqlCommand("Select * from dbo.ActiveFlights;", conn);
-                try
-                {
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+        //    using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
+        //    {
+        //        SqlCommand cmd = new SqlCommand("Select * from dbo.ActiveFlights;", conn);
+        //        try
+        //        {
+        //            conn.Open();
+        //            SqlDataReader reader = cmd.ExecuteReader();
 
-                    while (reader.Read())
-                    {
-                        flightList.Add(new ActiveFlight
-                        {       Flight_Number = Convert.ToInt32(reader["flight_Number"]),
-                                Id = Convert.ToInt32(reader["activeflight_Id"])
-                        });
+        //            while (reader.Read())
+        //            {
+        //                flightList.Add(new ActiveFlight
+        //                {       Flight_Number = Convert.ToInt32(reader["flight_Number"]),
+        //                        Id = Convert.ToInt32(reader["activeflight_Id"])
+        //                });
                         
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
-                }
+        //            }
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+        //        }
 
-            }
-            return flightList;
-        }
+        //    }
+        //    return flightList;
+        //}
        
     }
 }

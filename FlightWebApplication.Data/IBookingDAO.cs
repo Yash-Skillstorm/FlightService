@@ -8,8 +8,10 @@ namespace FlightWebApplication.Data
 {
     public interface IBookingDAO
     {
+        public IEnumerable<Booking> GetBookings();
+        public Booking GetBooking(int id);
         public void AddBooking(Booking Booking);
-
-        public IEnumerable<Booking> GetBooking();
+        public void DeleteBooking(int id);       
+        public void UpdateBooking(Booking Booking);
     }
 }
