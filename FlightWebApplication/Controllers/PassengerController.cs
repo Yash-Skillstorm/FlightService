@@ -10,6 +10,7 @@ namespace FlightWebApplication.Controllers
     public class PassengerController : Controller
     {
         private readonly IPassengerDAO passengerDao;
+        ReferanceTableData GetTableData = new ReferanceTableData();
         public PassengerController(IPassengerDAO passengerDao)
         {
             this.passengerDao = passengerDao;
@@ -87,8 +88,17 @@ namespace FlightWebApplication.Controllers
             {
                 return NotFound();
             }
+            ViewBag.mp = "";
             Passenger model = passengerDao.GetPassenger(id);
-
+            List<SeatCapacity> modSeat = GetTableData.CheckSeatCapacityTable(id, 0);
+            if (modSeat.Count != 0)
+            {
+                ViewBag.mp = "The Passenger has Booking the Flight";
+            }
+            else
+            {
+                ViewBag.mp = "";
+            }
             if (model == null)
             {
                 return NotFound();

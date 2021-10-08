@@ -3,55 +3,106 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FlightWebApplication</title>
+    <title>@ViewData["Title"] - Flight Service</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="~/css/_all-skins.min.css" />
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FlightWebApplication</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Index">Flight</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Passenger" asp-action="Index">Passenger</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">Booking</a>
-                        </li>
-                    </ul>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a class="logo" asp-area="" asp-controller="Home" asp-action="Index">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>F</b>S</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Flight Service</b></span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Flight Booking Dashboard</a>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-plane"></i>
+                            <span>Flight</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Flight" asp-action="Index"><i class="fa fa-circle-o"></i>View Flight</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Flight" asp-action="Create"><i class="fa fa-circle-o"></i>Add Flight</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>Passenger</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Passenger" asp-action="Index"><i class="fa fa-circle-o"></i>View Passenger </a>
+                            </li>
+                        </ul>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-ticket"></i>
+                            <span>Booking</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a asp-area="" asp-controller="Booking" asp-action="Index"><i class="fa fa-circle-o"></i>View Booking</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - FlightWebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="content-wrapper">
+            <section class="content">
+                @RenderBody()
+            </section>
         </div>
-    </footer>
+    
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy; 2021 - FlightWebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></strong> All rights
+            reserved.
+        </footer>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/adminlte.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

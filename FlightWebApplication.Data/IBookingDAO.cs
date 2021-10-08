@@ -10,7 +10,7 @@ namespace FlightWebApplication.Data
     {
         public IEnumerable<Booking> GetBookings();
         public Booking GetBooking(int id);
-        public void AddBooking(Booking Booking);
+        public int AddBooking(Booking Booking);
         public void DeleteBooking(int id);       
         public void UpdateBooking(Booking Booking);
     }

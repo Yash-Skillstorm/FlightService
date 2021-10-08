@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,7 @@ namespace FlightWebApplication.Data
                 try
                 {
                     conn.Open();
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -91,7 +93,8 @@ namespace FlightWebApplication.Data
                             Convert.ToDateTime(reader["Departure_Date"]),
                             Convert.ToDateTime(reader["Arrival_Date"]),
                             TimeSpan.Parse(reader["Departure_Time"].ToString()),
-                            TimeSpan.Parse(reader["Arrival_Time"].ToString()));
+                            TimeSpan.Parse(reader["Arrival_Time"].ToString()),
+                            Convert.ToInt32(reader["Seat_Capacity"]));
                         temp.Id = Convert.ToInt32(reader["flight_Id"]);
                         flightList.Add(temp);
                     }
@@ -103,6 +106,46 @@ namespace FlightWebApplication.Data
 
             }
             return flightList;
+        }
+
+        public List<SeatCapacity> CheckSeatCapacityTable(int Id, int flag)
+        {
+            List<SeatCapacity> TotalDataAvailable = new List<SeatCapacity>();
+            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
+            {
+                string sql = "";
+                if (flag == 1)
+                {
+                    sql = "[dbo].[GetSingleFlightBookingCount]";
+                }
+                else
+                {
+                    sql = "[dbo].[GetSinglePassengerBookingCount]";
+                }
+                
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@Id", Id);                    
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        TotalDataAvailable.Add(new SeatCapacity
+                        {
+                            //seatCapacity_FlightID = Convert.ToInt32(reader["Flight_Id"]),
+                            TotalCount = Convert.ToInt32(reader["TotalCount"])
+                        });
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                }
+            }
+            return TotalDataAvailable;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace FlightWebApplication.Models
 {
     public class BookingViewModel
     {
-        public string SelectedItem { get; set; }
+        public int SelectedItem { get; set; }
         public int Passenger_id { get; set; }
         public IEnumerable<Flight> flightData { get; set; }
     }

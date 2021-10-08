@@ -3,62 +3,88 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
-
-<h4>Flight</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input type="hidden" asp-for="Id" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Flight_Num" class="control-label"></label>
-                <select name="Flight_Num" class="form-control" asp-items="@(new SelectList(ViewBag.m, "Id", "Flight_Number", Model.Flight_Num))"></select>
-                <span asp-validation-for="Flight_Num" class="text-danger"></span>                
-            </div>
-            <div class="form-group">
-                <label asp-for="Departure_Airport" class="control-label"></label>
-                <input asp-for="Departure_Airport" class="form-control" />
-                <span asp-validation-for="Departure_Airport" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Arrival_Airport" class="control-label"></label>
-                <input asp-for="Arrival_Airport" class="form-control" />
-                <span asp-validation-for="Arrival_Airport" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Departure_Date" class="control-label"></label>
-                <input asp-for="Departure_Date" class="form-control" />
-                <span asp-validation-for="Departure_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Departure_Time" class="control-label"></label>
-                <input asp-for="Departure_Time" class="form-control" />
-                <span asp-validation-for="Departure_Time" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Arrival_Date" class="control-label"></label>
-                <input asp-for="Arrival_Date" class="form-control" />
-                <span asp-validation-for="Arrival_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Arrival_Time" class="control-label"></label>
-                <input asp-for="Arrival_Time" class="form-control" />
-                <span asp-validation-for="Arrival_Time" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Flight Details</h3>
+            </div>
+            <form class="form-horizontal" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Flight_Num" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <select name="Flight_Num" class="form-control" asp-items="@(new SelectList(ViewBag.m, "Id", "Flight_Number"))"></select>
+                                    <span asp-validation-for="Flight_Num" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Departure_Airport" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Departure_Airport" class="form-control" placeholder="Departure Airport" />
+                                    <span asp-validation-for="Departure_Airport" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Arrival_Airport" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Arrival_Airport" class="form-control" />
+                                    <span asp-validation-for="Arrival_Airport" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Departure_Date" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Departure_Date" class="form-control" asp-format="{0:yyyy-MM-dd}" />
+                                    <span asp-validation-for="Departure_Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Arrival_Date" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Arrival_Date" class="form-control" asp-format="{0:yyyy-MM-dd}" />
+                                    <span asp-validation-for="Arrival_Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Departure_Time" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Departure_Time" class="form-control" />
+                                    <span asp-validation-for="Departure_Time" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Arrival_Time" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Arrival_Time" class="form-control" />
+                                    <span asp-validation-for="Arrival_Time" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Seat_Capacity" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Seat_Capacity" class="form-control" />
+                                    <span asp-validation-for="Seat_Capacity" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a asp-action="Index">Back to List</a>
+                    <input type="submit" value="Save" class="btn btn-info pull-right" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

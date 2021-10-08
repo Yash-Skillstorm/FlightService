@@ -107,8 +107,17 @@ namespace FlightWebApplication.Controllers
             {
                 return NotFound();
             }
+            ViewBag.mp = "";
             Flight model = flightDao.GetFlight(id);
-
+            model.Flight_Num = GetTableData.GetTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
+            List<SeatCapacity> modSeat = GetTableData.CheckSeatCapacityTable(id,1);
+            if(modSeat.Count != 0)
+            {
+                ViewBag.mp = "The Flight is Booked by many Passengers";
+            }
+            else{
+                ViewBag.mp = "";
+            }
             if (model == null)
             {
                 return NotFound();

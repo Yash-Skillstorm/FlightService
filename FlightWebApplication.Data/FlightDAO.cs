@@ -34,7 +34,8 @@ namespace FlightWebApplication.Data
                             Convert.ToDateTime(reader["Departure_Date"]),
                             Convert.ToDateTime(reader["Arrival_Date"]),
                             TimeSpan.Parse(reader["Departure_Time"].ToString()),
-                            TimeSpan.Parse(reader["Arrival_Time"].ToString()));
+                            TimeSpan.Parse(reader["Arrival_Time"].ToString()),
+                            Convert.ToInt32(reader["Seat_Capacity"]));
                         temp.Id = Convert.ToInt32(reader["flight_Id"]);
                         flightList.Add(temp);
                     }
@@ -71,7 +72,8 @@ namespace FlightWebApplication.Data
                             Convert.ToDateTime(reader["Departure_Date"]),
                             Convert.ToDateTime(reader["Arrival_Date"]),
                             TimeSpan.Parse(reader["Departure_Time"].ToString()),
-                            TimeSpan.Parse(reader["Arrival_Time"].ToString()));
+                            TimeSpan.Parse(reader["Arrival_Time"].ToString()),
+                            Convert.ToInt32(reader["Seat_Capacity"]));
                         singleFlight.Id = Convert.ToInt32(reader["flight_Id"]);
                     }
                 }
@@ -127,6 +129,7 @@ namespace FlightWebApplication.Data
                 cmd.Parameters.AddWithValue("@Arrival_Time", flight.Arrival_Time);
                 cmd.Parameters.AddWithValue("@Departure_Airport", flight.Departure_Airport);
                 cmd.Parameters.AddWithValue("@Arrival_Airport", flight.Arrival_Airport);
+                cmd.Parameters.AddWithValue("@Seat_Capacity", flight.Seat_Capacity);
                 cmd.Parameters.Add("@Flight_Id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 try
@@ -162,6 +165,7 @@ namespace FlightWebApplication.Data
                 cmd.Parameters.AddWithValue("@Arrival_Time", flight.Arrival_Time);
                 cmd.Parameters.AddWithValue("@Departure_Airport", flight.Departure_Airport);
                 cmd.Parameters.AddWithValue("@Arrival_Airport", flight.Arrival_Airport);
+                cmd.Parameters.AddWithValue("@Seat_Capacity", flight.Seat_Capacity);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();

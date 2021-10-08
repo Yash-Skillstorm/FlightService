@@ -43,13 +43,12 @@ namespace FlightWebApplication.Data
         [Display(Name = "Arrival Time")]
         [DataType(DataType.Time)]
         public TimeSpan Arrival_Time { get; set; }
-
-        public virtual ActiveFlight activeFlight { get; set; }
+        public int Seat_Capacity { get; set; }
         public Flight()
         {
 
         }
-        public Flight(int Flg_Num, string Dep_Airport, string Arr_Airport, DateTime Dep_Date, DateTime Arr_Date, TimeSpan Dep_Time, TimeSpan Arr_Time)
+        public Flight(int Flg_Num, string Dep_Airport, string Arr_Airport, DateTime Dep_Date, DateTime Arr_Date, TimeSpan Dep_Time, TimeSpan Arr_Time, int Seat_Cap)
         {
             this.Flight_Num = Flg_Num;
             this.Departure_Airport = Dep_Airport;
@@ -58,6 +57,7 @@ namespace FlightWebApplication.Data
             this.Arrival_Date = Arr_Date;
             this.Departure_Time = Dep_Time;
             this.Arrival_Time = Arr_Time;
+            this.Seat_Capacity = Seat_Cap;
         }
     }
 }

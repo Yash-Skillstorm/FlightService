@@ -6,37 +6,45 @@
     ViewData["Title"] = "Flight";
 }
 
-<div class="text-center">
-    <h2>View All Flight</h2>
-    <a class="navbar-brand" asp-area="" asp-controller="Flight" asp-action="Create">Add Flight</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.Flight_Num) </th>                
-                <th>@Html.DisplayNameFor(model => model.Departure_Airport) </th>
-                <th>@Html.DisplayNameFor(model => model.Arrival_Airport)  </th>
-                <th>@Html.DisplayNameFor(model => model.Departure_Date)  </th>
-                <th>@Html.DisplayNameFor(model => model.Arrival_Date)  </th>
-                <th>@Html.DisplayNameFor(model => model.Departure_Time)  </th>
-                <th>@Html.DisplayNameFor(model => model.Arrival_Time)  </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var flight in Model)
-            {
-            <tr>
-                <td>@Html.DisplayFor(modelitem => flight.Flight_Num) </td>                
-                <td>@Html.DisplayFor(modelitem => flight.Departure_Airport) </td>
-                <td>@Html.DisplayFor(modelitem => flight.Arrival_Airport) </td>
-                <td>@Html.DisplayFor(modelitem => flight.Departure_Date) </td>
-                <td>@Html.DisplayFor(modelitem => flight.Arrival_Date) </td>
-                <td>@Html.DisplayFor(modelitem => flight.Departure_Time) </td>
-                <td>@Html.DisplayFor(modelitem => flight.Arrival_Time) </td>
-                <td>@Html.ActionLink("Details", "Details", new { id = flight.Id })</td>
-                <td>@Html.ActionLink("Delete", "Delete", new { id = flight.Id })</td>
-            </tr>
-            }
-
-        </tbody>
-    </table>
+<div>
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">List of Flights</h3>
+            </div>            
+            <div class="box-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Flight_Num) </th>
+                            <th>@Html.DisplayNameFor(model => model.Departure_Airport) </th>
+                            <th>@Html.DisplayNameFor(model => model.Arrival_Airport)  </th>
+                            <th>@Html.DisplayNameFor(model => model.Departure_Date)  </th>
+                            <th>@Html.DisplayNameFor(model => model.Arrival_Date)  </th>
+                            <th>@Html.DisplayNameFor(model => model.Departure_Time)  </th>
+                            <th>@Html.DisplayNameFor(model => model.Arrival_Time)  </th>
+                            <th>@Html.DisplayNameFor(model => model.Seat_Capacity)  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var flight in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelitem => flight.Flight_Num) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Departure_Airport) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Arrival_Airport) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Departure_Date) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Arrival_Date) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Departure_Time) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Arrival_Time) </td>
+                                <td>@Html.DisplayFor(modelitem => flight.Seat_Capacity) </td>
+                                <td>@Html.ActionLink("Details", "Details", new { id = flight.Id })</td>
+                                <td>@Html.ActionLink("Delete", "Delete", new { id = flight.Id })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

@@ -13,8 +13,7 @@ namespace FlightWebApplication.Data
         public int Flight_Num { get; set; }
         public int Passenger_id { get; set; }
         public string Passenger_Name { get; set;}        
-        public int Reservation_Num { get; set; }
-        public string SelectedItem { get; set; }
+        public int Reservation_Num { get; set; }       
         public Booking(int flig_Id, int Flig_Num, int Passg_Id, string Pass_Name, int rese_Num)
         {
             this.Flight_Id = flig_Id;

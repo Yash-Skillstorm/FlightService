@@ -20,7 +20,7 @@ namespace FlightWebApplication.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Booking> model = bookingDao.GetBookings();            
+            IEnumerable<Booking> model = bookingDao.GetBookings();
             return View(model);
         }
 
@@ -37,23 +37,33 @@ namespace FlightWebApplication.Controllers
             IEnumerable<Passenger> modPass = GetTableData.GetPassengerTable();
             BookingViewModel model = new BookingViewModel();
             IEnumerable<Flight> modFlight = GetTableData.GetFlightsTable();
-            model.flightData = modFlight;
-            //ViewBag.m = mod;
+            model.flightData = modFlight;            
             ViewBag.mp = modPass;
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind] Booking booking)
+        public IActionResult Create([Bind] BookingViewModel booking)
         {
+            ViewBag.m = "";
             if (ModelState.IsValid)
             {
-                bookingDao.AddBooking(booking);
-                return RedirectToAction("Index");
+                Booking newBooking = new Booking();
+                newBooking.Flight_Id = booking.SelectedItem;
+                newBooking.Passenger_id = booking.Passenger_id;
+                int number = bookingDao.AddBooking(newBooking);
+                if (number == 1)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.m = " Capacity is full. You cannot add more members";
+                }
             }
-
-            return View(booking);
+            return Create();
+            //return View(booking);         
         }
 
         [HttpGet]
@@ -89,6 +99,36 @@ namespace FlightWebApplication.Controllers
                 return RedirectToAction("Index");
             }
             return View(booking);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Booking model = bookingDao.GetBooking(id);            
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                bookingDao.DeleteBooking(id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
