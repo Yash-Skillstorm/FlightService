@@ -1,36 +1,64 @@
 ﻿@model FlightWebApplication.Data.Booking
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Booking Details";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Booking</h4>
-    <hr />
-    <dl class="row">        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Flight_Num)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Flight_Num)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Passenger_Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Passenger_Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation_Num)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Reservation_Num)
-        </dd>
-    </dl>
+    <div class="col-md-8">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Booking Details</h3>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Flight_Num)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Flight_Num)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Passenger_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Passenger_Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Reservation_Num)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Reservation_Num)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Departure_Airport)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Departure_Airport)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Arrival_Airport)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Arrival_Airport)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div>
+
+<div style="margin-left: 18px; font-size: 20px;">
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id })*@
     <a asp-action="Index">Back to List</a>
 </div>

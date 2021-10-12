@@ -59,7 +59,7 @@ namespace FlightWebApplication.Controllers
                 }
                 else
                 {
-                    ViewBag.m = " Capacity is full. You cannot add more members";
+                    ViewBag.m = "Seat Capacity is full. You cannot add more members to this flight.";
                 }
             }
             return Create();

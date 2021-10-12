@@ -1,44 +1,51 @@
 ﻿@model FlightWebApplication.Data.Passenger
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Passenger Details";
 }
 
-<h1>Edit</h1>
-
-<h4>Passenger</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input type="hidden" asp-for="Id" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Passenger_Name" class="control-label"></label>
-                <input asp-for="Passenger_Name" class="form-control" />
-                <span asp-validation-for="Passenger_Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Passenger_Age" class="control-label"></label>
-                <input asp-for="Passenger_Age" class="form-control" />
-                <span asp-validation-for="Passenger_Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Passenger_Email" class="control-label"></label>
-                <input asp-for="Passenger_Email" class="form-control" />
-                <span asp-validation-for="Passenger_Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Passenger Details</h3>
+            </div>
+            <form class="form-horizontal" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Passenger_Name" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Passenger_Name" class="form-control" />
+                                    <span asp-validation-for="Passenger_Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Passenger_Age" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Passenger_Age" class="form-control" />
+                                    <span asp-validation-for="Passenger_Age" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Passenger_Email" class="col-sm-3 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Passenger_Email" class="form-control" />
+                                    <span asp-validation-for="Passenger_Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a asp-action="Index">Back to List</a>
+                    <input type="submit" value="Save" class="btn btn-info pull-right" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

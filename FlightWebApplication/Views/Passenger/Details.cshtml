@@ -1,42 +1,56 @@
 ﻿@model FlightWebApplication.Data.Passenger
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Passenger Details";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Passenger</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Passenger_Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Passenger_Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Passenger_Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Passenger_Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Passenger_Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Passenger_Email)
-        </dd>
-    </dl>
+    <div class="col-md-8">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Passenger Details</h3>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Id)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Passenger_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Passenger_Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Passenger_Age)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Passenger_Age)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Passenger_Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Passenger_Email)
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) |
+
+<div style="margin-left: 18px; font-size: 20px;">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>

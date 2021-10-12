@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Flight Service</title>
+    <title>Flight Service - @ViewData["Title"]</title>
+    <link rel="icon" href="https://www.clipartmax.com/png/middle/264-2648755_airport-hotel-transfer-icon-images-usseek-air-ticket.png"
+          type="image/x-icon">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/AdminLTE.min.css" />
@@ -26,7 +28,7 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <div>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Flight Booking Dashboard</a>
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">Flight Booking Services</a>
                 </div>
             </nav>
         </header>
@@ -35,7 +37,7 @@
             <section class="sidebar">
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="header">MAIN MENU</li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-plane"></i>
@@ -65,6 +67,9 @@
                             <li>
                                 <a asp-area="" asp-controller="Passenger" asp-action="Index"><i class="fa fa-circle-o"></i>View Passenger </a>
                             </li>
+                            <li>
+                                <a asp-area="" asp-controller="Passenger" asp-action="Create"><i class="fa fa-circle-o"></i>Add Passenger </a>
+                            </li>
                         </ul>
                     <li class="treeview">
                         <a href="#">
@@ -77,6 +82,9 @@
                         <ul class="treeview-menu">
                             <li>
                                 <a asp-area="" asp-controller="Booking" asp-action="Index"><i class="fa fa-circle-o"></i>View Booking</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Booking" asp-action="Create"><i class="fa fa-circle-o"></i>Add Booking</a>
                             </li>
                         </ul>
                     </li>

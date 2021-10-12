@@ -30,7 +30,9 @@ namespace FlightWebApplication.Data
                             Convert.ToInt32(reader["flight_Number"]),
                              Convert.ToInt32(reader["Passenger_Id"]),
                              reader["Passenger_Name"].ToString(),
-                            Convert.ToInt32(reader["Reservation_Number"]));
+                            Convert.ToInt32(reader["Reservation_Number"]),
+                            reader["Departure_Airport"].ToString(),
+                            reader["Arrival_Airport"].ToString());
                         temp.Id = Convert.ToInt32(reader["Booking_Id"]);
                         bookingList.Add(temp);
                     }
@@ -65,7 +67,9 @@ namespace FlightWebApplication.Data
                             Convert.ToInt32(reader["flight_Number"]),
                              Convert.ToInt32(reader["Passenger_Id"]),
                              reader["Passenger_Name"].ToString(),
-                            Convert.ToInt32(reader["Reservation_Number"]));
+                            Convert.ToInt32(reader["Reservation_Number"]),
+                            reader["Departure_Airport"].ToString(),
+                            reader["Arrival_Airport"].ToString());
                         singleBooking.Id = Convert.ToInt32(reader["Booking_Id"]);
                     }
                 }

@@ -93,7 +93,7 @@ namespace FlightWebApplication.Controllers
             List<SeatCapacity> modSeat = GetTableData.CheckSeatCapacityTable(id, 0);
             if (modSeat.Count != 0)
             {
-                ViewBag.mp = "The Passenger has Booking the Flight";
+                ViewBag.mp = "The Passenger has Booked the Flight.";
             }
             else
             {

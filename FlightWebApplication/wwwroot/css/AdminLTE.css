@@ -18,10 +18,10 @@ body {
   height: 100%;
 }
 body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  overflow-x: hidden;
-  overflow-y: auto;
+    .main-header .logo font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 /* Layout */
 .wrapper {
@@ -286,8 +286,8 @@ a:focus {
   display: block;
   float: left;
   height: 55px;
-  font-size: 20px;
-  line-height: 50px;
+  font-size: 23px;
+  line-height: 55px;
   text-align: center;
   width: 230px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
