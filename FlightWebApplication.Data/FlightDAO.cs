@@ -19,30 +19,31 @@ namespace FlightWebApplication.Data
 
             using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
             {
-                SqlCommand cmd = new SqlCommand("Select * from dbo.FlightTable;", conn);
+                string sql = "[dbo].[GetAllFlight]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
-
                     while (reader.Read())
                     {
                         Flight temp = new Flight(
-                            Convert.ToInt32(reader["flight_Num"]),
-                            reader["Departure_Airport"].ToString(),
-                            reader["Arrival_Airport"].ToString(),
-                            Convert.ToDateTime(reader["Departure_Date"]),
-                            Convert.ToDateTime(reader["Arrival_Date"]),
-                            TimeSpan.Parse(reader["Departure_Time"].ToString()),
-                            TimeSpan.Parse(reader["Arrival_Time"].ToString()),
-                            Convert.ToInt32(reader["Seat_Capacity"]));
-                        temp.Id = Convert.ToInt32(reader["flight_Id"]);
+                            Convert.ToInt32(reader[ConstantString.FlightName]),
+                            reader[ConstantString.DepartureAirport].ToString(),
+                            reader[ConstantString.ArrivalAirport].ToString(),
+                            Convert.ToDateTime(reader[ConstantString.DepartureDate]),
+                            Convert.ToDateTime(reader[ConstantString.ArrivalDate]),
+                            TimeSpan.Parse(reader[ConstantString.DepartureTime].ToString()),
+                            TimeSpan.Parse(reader[ConstantString.ArrivalTime].ToString()),
+                            Convert.ToInt32(reader[ConstantString.SeatCapacity]));
+                        temp.Id = Convert.ToInt32(reader[ConstantString.FlightId]);
                         flightList.Add(temp);
                     }
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get all flights \n{0}", ex.Message);
                 }
 
             }
@@ -66,20 +67,20 @@ namespace FlightWebApplication.Data
                     while (reader.Read())
                     {
                         singleFlight = new Flight(
-                            Convert.ToInt32(reader["flight_Num"]),
-                            reader["Departure_Airport"].ToString(),
-                            reader["Arrival_Airport"].ToString(),
-                            Convert.ToDateTime(reader["Departure_Date"]),
-                            Convert.ToDateTime(reader["Arrival_Date"]),
-                            TimeSpan.Parse(reader["Departure_Time"].ToString()),
-                            TimeSpan.Parse(reader["Arrival_Time"].ToString()),
-                            Convert.ToInt32(reader["Seat_Capacity"]));
-                        singleFlight.Id = Convert.ToInt32(reader["flight_Id"]);
+                            Convert.ToInt32(reader[ConstantString.FlightName]),
+                            reader[ConstantString.DepartureAirport].ToString(),
+                            reader[ConstantString.ArrivalAirport].ToString(),
+                            Convert.ToDateTime(reader[ConstantString.DepartureDate]),
+                            Convert.ToDateTime(reader[ConstantString.ArrivalDate]),
+                            TimeSpan.Parse(reader[ConstantString.DepartureTime].ToString()),
+                            TimeSpan.Parse(reader[ConstantString.ArrivalTime].ToString()),
+                            Convert.ToInt32(reader[ConstantString.SeatCapacity]));                        
+                        singleFlight.Id = Convert.ToInt32(reader[ConstantString.FlightId]);
                     }
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get single homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get single flight \n{0}", ex.Message);
                 }
                 finally
                 {
@@ -87,31 +88,6 @@ namespace FlightWebApplication.Data
                 }
             }
             return singleFlight;
-        }
-
-        public void DeleteFlight(int id)
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionStringClass.GetConnectionString()))
-            {
-                string sql = "[dbo].[DeleteFlightByID]";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@Id", id);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Could not get single homes \n{0}", ex.Message);
-                }
-                finally
-                {
-                    con.Close();
-                }
-            }
         }
 
         public void AddFlight(Flight flight)
@@ -141,7 +117,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not add Homes\n{0}", ex.Message);
+                    Console.WriteLine("Could not add flight\n{0}", ex.Message);
                 }
                 finally
                 {
@@ -167,11 +143,46 @@ namespace FlightWebApplication.Data
                 cmd.Parameters.AddWithValue("@Arrival_Airport", flight.Arrival_Airport);
                 cmd.Parameters.AddWithValue("@Seat_Capacity", flight.Seat_Capacity);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not update flight \n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
-       
+
+        public void DeleteFlight(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
+            {
+                string sql = "[dbo].[DeleteFlightByID]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Id", id);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not delete flight \n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
     }
 }

@@ -74,7 +74,7 @@ namespace FlightWebApplication.Controllers
                 return NotFound();
             }
             Booking model = bookingDao.GetBooking(id);
-            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetActiveFlightTable();
             IEnumerable<Passenger> modPass = GetTableData.GetPassengerTable();
             ViewBag.m = mod;
             ViewBag.mp = modPass;

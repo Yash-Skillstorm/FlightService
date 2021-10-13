@@ -24,7 +24,7 @@ namespace FlightWebApplication.Controllers
         public IActionResult Index()
         {
             IEnumerable<Flight> model = flightDao.GetFlights();
-            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetActiveFlightTable();
 
             foreach (var item in model)
             {                
@@ -41,14 +41,14 @@ namespace FlightWebApplication.Controllers
         public IActionResult Details(int id)
         {
             Flight model = flightDao.GetFlight(id);
-            model.Flight_Num = GetTableData.GetTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
+            model.Flight_Num = GetTableData.GetActiveFlightTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
             return View(model);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetActiveFlightTable();
             ViewBag.m = mod;
             //ViewBag.m = new SelectList(, "activeflight_Id", "flight_Number")
             return View();
@@ -75,7 +75,7 @@ namespace FlightWebApplication.Controllers
                 return NotFound();
             }
             Flight model = flightDao.GetFlight(id);
-            IEnumerable<ActiveFlight> mod = GetTableData.GetTable();
+            IEnumerable<ActiveFlight> mod = GetTableData.GetActiveFlightTable();
             ViewBag.m = mod;
             if (model == null)
             {
@@ -109,7 +109,7 @@ namespace FlightWebApplication.Controllers
             }
             ViewBag.mp = "";
             Flight model = flightDao.GetFlight(id);
-            model.Flight_Num = GetTableData.GetTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
+            model.Flight_Num = GetTableData.GetActiveFlightTable().Where(i => model.Flight_Num.Equals(i.Id)).SingleOrDefault().Flight_Number;
             List<SeatCapacity> modSeat = GetTableData.CheckSeatCapacityTable(id,1);
             if(modSeat.Count != 0)
             {

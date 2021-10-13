@@ -10,6 +10,39 @@ namespace FlightWebApplication.Data
 {
     public class PassengerDAO : IPassengerDAO
     {
+        public IEnumerable<Passenger> GetPassengers()
+        {
+            List<Passenger> passengerList = new List<Passenger>();
+
+            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
+            {
+                string sql = "[dbo].[GetAllPassengers]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Passenger temp = new Passenger(
+                            reader[ConstantString.PassengerName].ToString(),
+                            Convert.ToInt32(reader[ConstantString.PassengerAge]),
+                            reader[ConstantString.PassengerEmail].ToString());
+                        temp.Id = Convert.ToInt32(reader[ConstantString.PassengerId]);
+                        passengerList.Add(temp);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not get all passengers \n{0}", ex.Message);
+                }
+
+            }
+            return passengerList;
+        }
+
         public Passenger GetPassenger(int id)
         {
 
@@ -18,7 +51,6 @@ namespace FlightWebApplication.Data
             using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
             {
                 string sql = "[dbo].[GetPassengerByID]";
-
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
@@ -29,15 +61,15 @@ namespace FlightWebApplication.Data
 
                     while (reader.Read())
                     {
-                        singlePassenger = new Passenger(reader["Passenger_Name"].ToString(),
-                           Convert.ToInt32(reader["Passenger_Age"]),
-                           reader["Passenger_Email"].ToString());
-                        singlePassenger.Id = Convert.ToInt32(reader["Passenger_Id"]);
+                        singlePassenger = new Passenger(reader[ConstantString.PassengerName].ToString(),
+                            Convert.ToInt32(reader[ConstantString.PassengerAge]),
+                            reader[ConstantString.PassengerEmail].ToString());
+                        singlePassenger.Id = Convert.ToInt32(reader[ConstantString.PassengerId]);
                     }
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get single homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get single passenger \n{0}", ex.Message);
                 }
                 finally
                 {
@@ -46,62 +78,6 @@ namespace FlightWebApplication.Data
 
             }
             return singlePassenger;
-        }
-
-        public IEnumerable<Passenger> GetPassengers()
-        {
-            List<Passenger> passengerList = new List<Passenger>();
-
-            //using statement close the connection if its failed to execute the query
-            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
-            {
-                SqlCommand cmd = new SqlCommand("Select * from dbo.PassengerTable;", conn);
-                try
-                {
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        Passenger temp = new Passenger(reader["Passenger_Name"].ToString(),
-                           Convert.ToInt32(reader["Passenger_Age"]),
-                           reader["Passenger_Email"].ToString());
-                        temp.Id = Convert.ToInt32(reader["Passenger_Id"]);
-                        passengerList.Add(temp);
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
-                }
-
-            }
-            return passengerList;
-        }
-
-        public void DeletePassenger(int id)
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionStringClass.GetConnectionString()))
-            {
-                string sql = "[dbo].[DeletePassengerByID]";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@Id", id);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Could not get single homes \n{0}", ex.Message);
-                }
-                finally
-                {
-                    con.Close();
-                }
-            }
         }
 
         public void AddPassenger(Passenger passenger)
@@ -126,7 +102,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not add Homes\n{0}", ex.Message);
+                    Console.WriteLine("Could not add passenger\n{0}", ex.Message);
                 }
                 finally
                 {
@@ -147,10 +123,46 @@ namespace FlightWebApplication.Data
                 cmd.Parameters.AddWithValue("@Passenger_Age", passenger.Passenger_Age);
                 cmd.Parameters.AddWithValue("@Passenger_Email", passenger.Passenger_Email);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not update passenger \n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
+
+        public void DeletePassenger(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
+            {
+                string sql = "[dbo].[DeletePassengerByID]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Id", id);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not delete passenger \n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
     }
 }

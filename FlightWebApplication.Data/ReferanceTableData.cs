@@ -10,13 +10,15 @@ namespace FlightWebApplication.Data
 {
     public class ReferanceTableData
     {
-        public IEnumerable<ActiveFlight> GetTable()
+        public IEnumerable<ActiveFlight> GetActiveFlightTable()
         {
             List<ActiveFlight> flightList = new List<ActiveFlight>();
 
             using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
             {
-                SqlCommand cmd = new SqlCommand("Select * from dbo.ActiveFlights;", conn);
+                string sql = "[dbo].[GetAllActiveFlights]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     conn.Open();
@@ -34,7 +36,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get all activeflights \n{0}", ex.Message);
                 }
 
             }
@@ -47,7 +49,9 @@ namespace FlightWebApplication.Data
 
             using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
             {
-                SqlCommand cmd = new SqlCommand("Select * from dbo.PassengerTable;", conn);
+                string sql = "[dbo].[GetAllPassengers]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     conn.Open();
@@ -64,7 +68,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get all passengers \n{0}", ex.Message);
                 }
 
             }
@@ -77,7 +81,9 @@ namespace FlightWebApplication.Data
 
             using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
             {
-                SqlCommand cmd = new SqlCommand("select * from dbo.FlightTable as F Join dbo.ActiveFlights as AF on AF.activeflight_id = F.Flight_Num;", conn);
+                string sql = "[dbo].[GetFlightsWithActiveFlights]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     conn.Open();
@@ -101,7 +107,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get all Flights with Active flights \n{0}", ex.Message);
                 }
 
             }
@@ -122,13 +128,13 @@ namespace FlightWebApplication.Data
                 {
                     sql = "[dbo].[GetSinglePassengerBookingCount]";
                 }
-                
+
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     conn.Open();
-                    cmd.Parameters.AddWithValue("@Id", Id);                    
+                    cmd.Parameters.AddWithValue("@Id", Id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -142,7 +148,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
             return TotalDataAvailable;

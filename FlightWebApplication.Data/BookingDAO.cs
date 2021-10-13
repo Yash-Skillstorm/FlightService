@@ -17,7 +17,9 @@ namespace FlightWebApplication.Data
 
             using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
             {
-                SqlCommand cmd = new SqlCommand("select * from dbo.BookingTable as B, dbo.FlightTable as F, dbo.PassengerTable as P, dbo.ActiveFlights as AF Where F.flight_Id = B.Flight_Id AND P.passenger_Id = b.Passenger_Id And AF.activeflight_Id = F.flight_Num; ", conn);
+                string sql = "[dbo].[GetAllBooking]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     conn.Open();
@@ -28,8 +30,8 @@ namespace FlightWebApplication.Data
                         Booking temp = new Booking(
                             Convert.ToInt32(reader["flight_Id"]),
                             Convert.ToInt32(reader["flight_Number"]),
-                             Convert.ToInt32(reader["Passenger_Id"]),
-                             reader["Passenger_Name"].ToString(),
+                            Convert.ToInt32(reader["Passenger_Id"]),
+                            reader["Passenger_Name"].ToString(),
                             Convert.ToInt32(reader["Reservation_Number"]),
                             reader["Departure_Airport"].ToString(),
                             reader["Arrival_Airport"].ToString());
@@ -39,7 +41,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get all homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get all bookings \n{0}", ex.Message);
                 }
 
             }
@@ -63,10 +65,10 @@ namespace FlightWebApplication.Data
                     while (reader.Read())
                     {
                         singleBooking = new Booking(
-                           Convert.ToInt32(reader["flight_Id"]),
+                            Convert.ToInt32(reader["flight_Id"]),
                             Convert.ToInt32(reader["flight_Number"]),
-                             Convert.ToInt32(reader["Passenger_Id"]),
-                             reader["Passenger_Name"].ToString(),
+                            Convert.ToInt32(reader["Passenger_Id"]),
+                            reader["Passenger_Name"].ToString(),
                             Convert.ToInt32(reader["Reservation_Number"]),
                             reader["Departure_Airport"].ToString(),
                             reader["Arrival_Airport"].ToString());
@@ -75,7 +77,7 @@ namespace FlightWebApplication.Data
                 }
                 catch (SqlException ex)
                 {
-                    Console.WriteLine("Could not get single homes \n{0}", ex.Message);
+                    Console.WriteLine("Could not get single booking \n{0}", ex.Message);
                 }
                 finally
                 {
@@ -85,42 +87,17 @@ namespace FlightWebApplication.Data
             return singleBooking;
         }
 
-        public void DeleteBooking(int id)
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionStringClass.GetConnectionString()))
-            {
-                string sql = "[dbo].[DeleteBookingByID]";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@Id", id);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine("Could not get single homes \n{0}", ex.Message);
-                }
-                finally
-                {
-                    con.Close();
-                }
-            }
-        }
-
         public int AddBooking(Booking booking)
         {
-            List<SeatCapacity> model = GetTableData.CheckSeatCapacityTable(booking.Flight_Id,1);
+            List<SeatCapacity> model = GetTableData.CheckSeatCapacityTable(booking.Flight_Id, 1);
             var flag = false;
             var TotalSeatCapacity = 0;
             if (model.Count != 0)
             {
                 IEnumerable<Flight> modFlight = GetTableData.GetFlightsTable();
-                foreach(var item in modFlight)
+                foreach (var item in modFlight)
                 {
-                    if(item.Id == booking.Flight_Id)
+                    if (item.Id == booking.Flight_Id)
                     {
                         TotalSeatCapacity = item.Seat_Capacity;
                     }
@@ -163,7 +140,7 @@ namespace FlightWebApplication.Data
                     }
                     catch (SqlException ex)
                     {
-                        Console.WriteLine("Could not add Homes\n{0}", ex.Message);
+                        Console.WriteLine("Could not add Booking\n{0}", ex.Message);
                     }
                     finally
                     {
@@ -185,10 +162,44 @@ namespace FlightWebApplication.Data
                 cmd.Parameters.AddWithValue("@Flight_Id", booking.Flight_Id);
                 cmd.Parameters.AddWithValue("@Passenger_Id", booking.Passenger_id);
                 cmd.Parameters.AddWithValue("@Reservation_Number", booking.Reservation_Num);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not update booking \n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+        public void DeleteBooking(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionStringClass.GetConnectionString()))
+            {
+                string sql = "[dbo].[DeleteBookingByID]";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Id", id);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Could not delete booking \n{0}", ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
     }
