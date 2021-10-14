@@ -43,6 +43,7 @@ namespace FlightWebApplication.Data
         [Display(Name = "Arrival Time")]
         [DataType(DataType.Time)]
         public TimeSpan Arrival_Time { get; set; }
+
         [Display(Name ="Seat Capacity")]
         public int Seat_Capacity { get; set; }
         public Flight()

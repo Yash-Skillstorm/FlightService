@@ -27,8 +27,8 @@ namespace FlightWebApplication.Data
 
         [Required]
         [Display(Name = "Destination")]
-        public string Arrival_Airport { get; set; }
-        
+        public string Arrival_Airport { get; set; }        
+
         public Booking(int flig_Id, int Flig_Num, int Passg_Id, string Pass_Name, int rese_Num, string dep_Airpot, string arr_Airport)
         {
             this.Flight_Id = flig_Id;
@@ -37,7 +37,7 @@ namespace FlightWebApplication.Data
             this.Passenger_Name = Pass_Name;
             this.Reservation_Num = rese_Num;
             this.Departure_Airport = dep_Airpot;
-            this.Arrival_Airport = arr_Airport;
+            this.Arrival_Airport = arr_Airport;            
         }
         public Booking()
         {

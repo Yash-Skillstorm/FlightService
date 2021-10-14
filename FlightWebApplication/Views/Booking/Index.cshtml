@@ -29,6 +29,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Arrival_Airport)
                             </th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +50,7 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => booking.Arrival_Airport)
-                            </td>
+                            </td>                            
                             <td>@Html.ActionLink("Details", "Details", new { id = booking.Id })</td>
                             @*<td>@Html.ActionLink("Delete", "Delete", new { id = booking.Id })</td>*@
                         </tr>

@@ -50,6 +50,7 @@ namespace FlightWebApplication.Controllers
         {
             IEnumerable<ActiveFlight> mod = GetTableData.GetActiveFlightTable();
             ViewBag.m = mod;
+            
             //ViewBag.m = new SelectList(, "activeflight_Id", "flight_Number")
             return View();
         }
@@ -77,6 +78,7 @@ namespace FlightWebApplication.Controllers
             Flight model = flightDao.GetFlight(id);
             IEnumerable<ActiveFlight> mod = GetTableData.GetActiveFlightTable();
             ViewBag.m = mod;
+            //ViewBag.m = new SelectList(mod, "Id", "Flight_Number", model.Flight_Num);           
             if (model == null)
             {
                 return NotFound();
