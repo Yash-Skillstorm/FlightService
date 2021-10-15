@@ -29,7 +29,7 @@ namespace FlightWebApplication.Data
                     while (reader.Read())
                     {
                         Flight temp = new Flight(
-                            Convert.ToInt32(reader[ConstantString.FlightName]),
+                            Convert.ToInt32(reader[ConstantString.FlightNum]),
                             reader[ConstantString.DepartureAirport].ToString(),
                             reader[ConstantString.ArrivalAirport].ToString(),
                             Convert.ToDateTime(reader[ConstantString.DepartureDate]),
@@ -67,7 +67,7 @@ namespace FlightWebApplication.Data
                     while (reader.Read())
                     {
                         singleFlight = new Flight(
-                            Convert.ToInt32(reader[ConstantString.FlightName]),
+                            Convert.ToInt32(reader[ConstantString.FlightNum]),
                             reader[ConstantString.DepartureAirport].ToString(),
                             reader[ConstantString.ArrivalAirport].ToString(),
                             Convert.ToDateTime(reader[ConstantString.DepartureDate]),

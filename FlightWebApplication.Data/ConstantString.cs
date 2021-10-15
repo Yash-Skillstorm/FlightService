@@ -8,9 +8,12 @@ namespace FlightWebApplication.Data
 {
     public class ConstantString
     {
+        //ActiveFlight Table
+        public const string ActiveFlightId = "Id";
+        public const string ActiveFlightNumber = "Flight_Number";
         //Flight Table
         public const string FlightId = "flight_Id";
-        public const string FlightName = "flight_Num";
+        public const string FlightNum = "flight_Num";
         public const string DepartureAirport = "Departure_Airport";
         public const string ArrivalAirport = "Arrival_Airport";
         public const string DepartureDate = "Departure_Date";
@@ -25,6 +28,10 @@ namespace FlightWebApplication.Data
         public const string PassengerName = "Passenger_Name";
         public const string PassengerAge = "Passenger_Age";
         public const string PassengerEmail = "Passenger_Email";
+
+        //Booking Table
+        public const string BookingId = "Booking_Id";
+        public const string ReservationNumber = "Reservation_Number";
 
     }
 }

@@ -28,14 +28,14 @@ namespace FlightWebApplication.Data
                     while (reader.Read())
                     {
                         Booking temp = new Booking(
-                            Convert.ToInt32(reader["flight_Id"]),
-                            Convert.ToInt32(reader["flight_Number"]),
-                            Convert.ToInt32(reader["Passenger_Id"]),
-                            reader["Passenger_Name"].ToString(),
-                            Convert.ToInt32(reader["Reservation_Number"]),
-                            reader["Departure_Airport"].ToString(),
-                            reader["Arrival_Airport"].ToString());
-                        temp.Id = Convert.ToInt32(reader["Booking_Id"]);
+                            Convert.ToInt32(reader[ConstantString.FlightId]),
+                            Convert.ToInt32(reader[ConstantString.ActiveFlightNumber]),
+                            Convert.ToInt32(reader[ConstantString.PassengerId]),
+                            reader[ConstantString.PassengerName].ToString(),
+                            Convert.ToInt32(reader[ConstantString.ReservationNumber]),
+                            reader[ConstantString.DepartureAirport].ToString(),
+                            reader[ConstantString.ArrivalAirport].ToString());
+                        temp.Id = Convert.ToInt32(reader[ConstantString.BookingId]);
                         bookingList.Add(temp);
                     }
                 }
@@ -65,14 +65,14 @@ namespace FlightWebApplication.Data
                     while (reader.Read())
                     {
                         singleBooking = new Booking(
-                            Convert.ToInt32(reader["flight_Id"]),
-                            Convert.ToInt32(reader["flight_Number"]),
-                            Convert.ToInt32(reader["Passenger_Id"]),
-                            reader["Passenger_Name"].ToString(),
-                            Convert.ToInt32(reader["Reservation_Number"]),
-                            reader["Departure_Airport"].ToString(),
-                            reader["Arrival_Airport"].ToString());
-                        singleBooking.Id = Convert.ToInt32(reader["Booking_Id"]);
+                            Convert.ToInt32(reader[ConstantString.FlightId]),
+                            Convert.ToInt32(reader[ConstantString.ActiveFlightNumber]),
+                            Convert.ToInt32(reader[ConstantString.PassengerId]),
+                            reader[ConstantString.PassengerName].ToString(),
+                            Convert.ToInt32(reader[ConstantString.ReservationNumber]),
+                            reader[ConstantString.DepartureAirport].ToString(),
+                            reader[ConstantString.ArrivalAirport].ToString());
+                        singleBooking.Id = Convert.ToInt32(reader[ConstantString.BookingId]);
                     }
                 }
                 catch (SqlException ex)
